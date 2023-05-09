@@ -3,5 +3,5 @@
 public interface IPasswordHashService
 {
     byte[] GenerateSalt();
-    byte[] Encode(string password, byte[] passwordSalt);
+    byte[] EncodePassword(string password, byte[] passwordSalt);
 }

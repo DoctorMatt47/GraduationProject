@@ -1,5 +1,5 @@
 using GraduationProject.Application.Common.Extensions;
-using GraduationProject.Infrastructure.Extensions;
+using GraduationProject.Infrastructure.Common.Extensions;
 using GraduationProject.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

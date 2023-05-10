@@ -2,5 +2,5 @@
 
 public record PageResponse<T>(
     IEnumerable<T> Items,
-    int PageCount,
-    int ItemTotalCount);
+    int TotalPages,
+    int TotalItems);

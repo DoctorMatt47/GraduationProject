@@ -1,8 +1,18 @@
+using GraduationProject.Application.Common.Extensions;
+using GraduationProject.Infrastructure.Extensions;
+using GraduationProject.WebApi.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddSwagger()
+    .AddBearerAuthentication(builder.Configuration)
+    .AddControllers();
+    
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 

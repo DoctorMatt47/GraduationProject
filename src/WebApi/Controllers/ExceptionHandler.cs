@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GraduationProject.WebApi.Controllers;
 
 [ApiExplorerSettings(IgnoreApi = true)]
-public class ErrorHandleController : ControllerBase
+public class ExceptionHandler : ControllerBase
 {
     [Route("/error")]
     public ActionResult<ErrorResponse> Handle()

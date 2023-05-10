@@ -12,7 +12,7 @@ public class ExceptionHandler : ControllerBase
     public ActionResult<ErrorResponse> Handle()
     {
         var error = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-        if (error is not ApplicationExceptionBase exception) return StatusCode(500);
+        if (error is not AppExceptionBase exception) return StatusCode(500);
 
         var responseCode = exception switch
         {

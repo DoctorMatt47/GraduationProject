@@ -5,7 +5,7 @@ using GraduationProject.Application.Common.Requests;
 using GraduationProject.Application.Common.Responses;
 using MockQueryable.NSubstitute;
 
-namespace Graduation.Application.UnitTests.Common.Extensions;
+namespace GraduationProject.Application.UnitTests.Common.Extensions;
 
 public class EntityFrameworkExtensionsTests
 {

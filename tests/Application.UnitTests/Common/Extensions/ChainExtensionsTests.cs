@@ -2,7 +2,7 @@ using Bogus;
 using FluentAssertions;
 using GraduationProject.Application.Common.Extensions;
 
-namespace Graduation.Application.UnitTests.Common.Extensions;
+namespace GraduationProject.Application.UnitTests.Common.Extensions;
 
 public class ChainExtensionsTests
 {

@@ -3,7 +3,7 @@ using Bogus;
 using FluentAssertions;
 using GraduationProject.Application.Users;
 
-namespace Graduation.Application.UnitTests.Users;
+namespace GraduationProject.Application.UnitTests.Users;
 
 public class PasswordHashServiceTests
 {

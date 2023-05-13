@@ -2,7 +2,7 @@
 
 namespace GraduationProject.Domain.Entities;
 
-public class Identity : IHasId<Guid>
+public class IdentityUser : IHasId<Guid>
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
 }

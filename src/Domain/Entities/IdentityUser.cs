@@ -4,5 +4,10 @@ namespace GraduationProject.Domain.Entities;
 
 public class IdentityUser : IHasId<Guid>
 {
-    public Guid Id { get; private set; } = Guid.NewGuid();
+    public IdentityUser(Guid id)
+    {
+        Id = id;
+    }
+
+    public Guid Id { get; private set; }
 }

@@ -1,3 +1,4 @@
+using System.Security.Principal;
 using GraduationProject.Application.Common.Extensions;
 using GraduationProject.Infrastructure.Common.Extensions;
 using GraduationProject.WebApi.Extensions;
@@ -9,6 +10,10 @@ builder.Services
     .AddSwagger()
     .AddBearerAuthentication(builder.Configuration)
     .AddControllers();
+
+builder.Services
+    .AddHttpContextAccessor()
+    .AddScoped<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>()!.HttpContext!.User);
     
 builder.Services
     .AddApplication()

@@ -1,14 +1,11 @@
-﻿using System.Linq.Expressions;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Security.Claims;
 using Bogus;
+using FluentAssertions;
 using GraduationProject.Application.Common.Abstractions;
 using GraduationProject.Application.Identities;
 using GraduationProject.Application.Users;
 using GraduationProject.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using MockQueryable.NSubstitute;
 using NSubstitute;
 
 namespace GraduationProject.Application.UnitTests.Identities;
@@ -37,24 +34,16 @@ public class IdentityServiceTests
         var faker = new Faker();
         
         var token = faker.Random.String();
-
         var login = faker.Random.String();
         var passwordHash = faker.Random.Bytes(32);
+        
         var user = User.Create(login, faker.Random.Bytes(32), passwordHash);
+        var users = new List<User> { user };
+        var userDbContext = Testing.MockDbContext(users);
         
-        var users = new[] {user}.AsQueryable().BuildMockDbSet();
-        
-        _appDbContext
-            .Set<User>()
-            .Returns(users);
-        
-        _passwordHashService
-            .EncodePassword(Arg.Any<string>(), Arg.Any<byte[]>())
-            .Returns(passwordHash);
-        
-        _tokens
-            .GetToken(Arg.Any<ClaimsIdentity>())
-            .Returns(token);
+        _appDbContext.Set<User>().Returns(userDbContext);
+        _passwordHashService.EncodePassword(Arg.Any<string>(), Arg.Any<byte[]>()).Returns(passwordHash);
+        _tokens.GetToken(Arg.Any<ClaimsIdentity>()).Returns(token);
         
         var identityService = new IdentityService(
             _appDbContext,
@@ -69,7 +58,7 @@ public class IdentityServiceTests
         var response = await identityService.CreateIdentity(request, CancellationToken.None);
         
         // Assert
-        Assert.Equal(user.Id, response.Id);
-        Assert.Equal(token, response.Token);
+        response.Id.Should().Be(user.Id);
+        response.Token.Should().Be(token);
     }
 }

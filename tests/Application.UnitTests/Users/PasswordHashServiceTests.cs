@@ -8,6 +8,19 @@ namespace GraduationProject.Application.UnitTests.Users;
 public class PasswordHashServiceTests
 {
     [Fact]
+    public void GenerateSalt_ShouldReturnSalt()
+    {
+        // Arrange
+        var passwordHashService = new PasswordHashService();
+        
+        // Act
+        var actual = passwordHashService.GenerateSalt();
+        
+        // Assert
+        actual.Should().NotBeEmpty();
+    }
+    
+    [Fact]
     public void Encode_ShouldReturnHashedPassword()
     {
         // Arrange

@@ -1,3 +1,5 @@
+using System.Security.Principal;
+using GraduationProject.Application.Common.Abstractions;
 using GraduationProject.Application.Identities;
 using GraduationProject.Infrastructure.Identities;
 using GraduationProject.Infrastructure.Persistence.Contexts;
@@ -15,12 +17,12 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")!;
         
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseInMemoryDatabase(connectionString));
+        services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseInMemoryDatabase(connectionString));
 
         services.AddSingleton<IAuthTokenRepository, AuthTokenRepository>();
-        services.AddSingleton<IIdentityRepository, IdentityRepository>();
         
+        services.AddScoped<IIdentityRepository, IdentityRepository>();
+
         return services;
     }
 }

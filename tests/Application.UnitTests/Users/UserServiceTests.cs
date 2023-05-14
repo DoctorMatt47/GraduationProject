@@ -1,4 +1,5 @@
-﻿using Bogus;
+﻿using System.Security.Claims;
+using Bogus;
 using FluentAssertions;
 using GraduationProject.Application.Common.Abstractions;
 using GraduationProject.Application.Identities;
@@ -31,10 +32,12 @@ public class UserServiceTests
         // Arrange
         var faker = new Faker();
 
+        var token = faker.Random.String();
         var users = new List<User>();
         var userDbSet = Testing.MockDbContext(users);
         
         _appDbContext.Set<User>().Returns(userDbSet);
+        _authTokenRepository.GetToken(Arg.Any<ClaimsIdentity>()).Returns(token);
         
         var userService = new UserService(
             _appDbContext,
@@ -50,5 +53,6 @@ public class UserServiceTests
 
         // Assert
         users.Should().Contain(u => u.Login == request.Login && u.Id == response.Id);
+        response.Token.Should().Be(token);
     }
 }

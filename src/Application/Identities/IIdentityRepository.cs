@@ -5,5 +5,5 @@ namespace GraduationProject.Application.Identities;
 
 public interface IIdentityRepository
 {
-    public ClaimsIdentity CreateIdentity(Identity request);
+    public ClaimsIdentity CreateIdentity(IdentityUser request);
 }

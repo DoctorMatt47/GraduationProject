@@ -6,7 +6,7 @@ namespace GraduationProject.Infrastructure.Identities;
 
 public class IdentityRepository : IIdentityRepository
 {
-    public ClaimsIdentity CreateIdentity(Identity request)
+    public ClaimsIdentity CreateIdentity(IdentityUser request)
     {
         var claims = new List<Claim>
         {

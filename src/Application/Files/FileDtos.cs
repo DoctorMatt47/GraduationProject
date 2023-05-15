@@ -2,4 +2,4 @@
 
 public record UploadFileRequest(
     MemoryStream File,
-    string Key);
+    string Path);

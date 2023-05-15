@@ -20,12 +20,12 @@ public class FileS3Repository : IFileRepository
         _s3Options = s3Options.Value;
     }
 
-    public async Task<Stream> GetFile(string key, CancellationToken cancellationToken = default)
+    public async Task<Stream> GetFile(string path, CancellationToken cancellationToken = default)
     {
         var getObjectRequest = new GetObjectRequest
         {
             BucketName = _s3Options.BucketName,
-            Key = key,
+            Key = path,
         };
         
         try
@@ -47,7 +47,7 @@ public class FileS3Repository : IFileRepository
         var uploadRequest = new TransferUtilityUploadRequest
         {
             InputStream = request.File,
-            Key = request.Key,
+            Key = request.Path,
             BucketName = _s3Options.BucketName,
             CannedACL = S3CannedACL.NoACL,
         };

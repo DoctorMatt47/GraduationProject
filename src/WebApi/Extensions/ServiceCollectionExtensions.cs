@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var section = configuration.GetSection("AuthOptions");
+        var section = configuration.GetSection("Auth");
         
         services.Configure<AuthOptions>(section);
         var authOptions = section.Get<AuthOptions>()!;

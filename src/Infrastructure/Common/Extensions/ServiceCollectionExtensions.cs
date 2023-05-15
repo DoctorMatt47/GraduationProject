@@ -1,4 +1,4 @@
-using System.Security.Principal;
+using Amazon.S3;
 using GraduationProject.Application.Common.Abstractions;
 using GraduationProject.Application.Identities;
 using GraduationProject.Infrastructure.Identities;
@@ -22,6 +22,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAuthTokenRepository, AuthTokenRepository>();
         
         services.AddScoped<IIdentityRepository, IdentityRepository>();
+        
+        var awsOptions = configuration.GetAWSOptions();
+        services.AddDefaultAWSOptions(awsOptions);
+        services.AddAWSService<IAmazonS3>();
 
         return services;
     }

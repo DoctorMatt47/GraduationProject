@@ -1,6 +1,7 @@
 using System.Security.Principal;
 using GraduationProject.Application.Common.Extensions;
 using GraduationProject.Infrastructure.Common.Extensions;
+using GraduationProject.Infrastructure.Files;
 using GraduationProject.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services
     .AddSwagger()
     .AddBearerAuthentication(builder.Configuration)
     .AddControllers();
+
+builder.Services.Configure<S3Options>(builder.Configuration.GetSection("AWS:S3"));
 
 builder.Services
     .AddHttpContextAccessor()

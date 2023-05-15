@@ -2,5 +2,7 @@
 
 public interface IFileRepository
 {
-    Task UploadFile(UploadFileRequest file, CancellationToken cancellationToken = default);
+    Task<Stream> GetFile(string key, CancellationToken cancellationToken = default);
+    Task UploadFile(UploadFileRequest request, CancellationToken cancellationToken = default);
+    Task DeleteFile(string path, CancellationToken cancellationToken = default);
 }

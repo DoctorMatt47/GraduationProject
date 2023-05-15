@@ -10,10 +10,10 @@ public class IdentityRepository : IIdentityRepository
     public IdentityRepository(IPrincipal principal)
     {
         if (principal.Identity?.Name is null) return;
-        Current = new IdentityUser(Guid.Parse(principal.Identity.Name));
+        CurrentUser = new IdentityUser(Guid.Parse(principal.Identity.Name));
     }
 
-    public IdentityUser? Current { get; init; }
+    public IdentityUser? CurrentUser { get; init; }
 
     public ClaimsIdentity CreateIdentity(IdentityUser request)
     {

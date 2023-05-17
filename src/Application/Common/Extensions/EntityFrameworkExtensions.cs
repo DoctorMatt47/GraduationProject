@@ -20,5 +20,4 @@ public static class EntityFrameworkExtensions
 
         return new PageResponse<T>(items, pageCount, itemTotalCount);
     }
-    
 }

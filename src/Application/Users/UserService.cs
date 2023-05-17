@@ -10,10 +10,10 @@ namespace GraduationProject.Application.Users;
 public class UserService : IUserService
 {
     private readonly IAppDbContext _dbContext;
-    private readonly IPasswordHashService _passwordHashService;
     private readonly IIdentityRepository _identities;
-    private readonly IAuthTokenRepository _tokens;
     private readonly ILogger<UserService> _logger;
+    private readonly IPasswordHashService _passwordHashService;
+    private readonly IAuthTokenRepository _tokens;
 
     public UserService(
         IAppDbContext dbContext,
@@ -35,14 +35,14 @@ public class UserService : IUserService
     {
         var userExist = await _dbContext.Set<User>().AnyAsync(u => u.Login == request.Login, cancellationToken);
         if (userExist) throw ConflictException.AlreadyExists(nameof(User), request.Login);
-        
+
         var passwordSalt = _passwordHashService.GenerateSalt();
         var passwordHash = _passwordHashService.EncodePassword(request.Password, passwordSalt);
         var user = User.Create(request.Login, passwordSalt, passwordHash);
-        
+
         await _dbContext.Set<User>().AddAsync(user, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
-        
+
         _logger.LogInformation("Created user with id '{Id}'", user.Id);
 
         var identity = _identities.CreateIdentity(user);

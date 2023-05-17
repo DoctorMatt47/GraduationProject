@@ -16,13 +16,13 @@ public static class ServiceCollectionExtensions
         IConfigurationRoot configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")!;
-        
+
         services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseInMemoryDatabase(connectionString));
 
         services.AddSingleton<IAuthTokenRepository, AuthTokenRepository>();
-        
+
         services.AddScoped<IIdentityRepository, IdentityRepository>();
-        
+
         var awsOptions = configuration.GetAWSOptions();
         services.AddDefaultAWSOptions(awsOptions);
         services.AddAWSService<IAmazonS3>();

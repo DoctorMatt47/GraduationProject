@@ -13,10 +13,10 @@ public class ChainExtensionsTests
         var faker = new Faker();
         var obj = faker.Random.String();
         var expected = faker.Random.String();
-        
+
         // Act
         var actual = obj.Pipe(_ => expected);
-        
+
         // Assert
         actual.Should().Be(expected);
     }

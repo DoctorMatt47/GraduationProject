@@ -8,15 +8,10 @@ public class UsersController : ApiControllerBase
 {
     private readonly IUserService _userService;
 
-    public UsersController(IUserService userService)
-    {
-        _userService = userService;
-    }
+    public UsersController(IUserService userService) => _userService = userService;
 
     [HttpPost]
     [AllowAnonymous]
-    public async Task<CreateUserResponse> CreateUser(CreateUserRequest request, CancellationToken cancellationToken)
-    {
-        return await _userService.CreateUser(request, cancellationToken);
-    }
+    public async Task<CreateUserResponse> CreateUser(CreateUserRequest request, CancellationToken cancellationToken) =>
+        await _userService.CreateUser(request, cancellationToken);
 }

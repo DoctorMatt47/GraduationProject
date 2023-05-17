@@ -12,14 +12,14 @@ public class PasswordHashServiceTests
     {
         // Arrange
         var passwordHashService = new PasswordHashService();
-        
+
         // Act
         var actual = passwordHashService.GenerateSalt();
-        
+
         // Assert
         actual.Should().NotBeEmpty();
     }
-    
+
     [Fact]
     public void Encode_ShouldReturnHashedPassword()
     {
@@ -29,10 +29,10 @@ public class PasswordHashServiceTests
         var passwordBytes = Encoding.UTF8.GetBytes(password);
         var salt = faker.Random.Bytes(16);
         var passwordHashService = new PasswordHashService();
-        
+
         // Act
         var actual = passwordHashService.EncodePassword(password, salt);
-        
+
         // Assert
         actual.Should().NotBeEquivalentTo(passwordBytes);
     }

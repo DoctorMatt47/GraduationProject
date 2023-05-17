@@ -10,11 +10,11 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddSingleton<IPasswordHashService, PasswordHashService>();
-        
+
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IFileService, FileService>();
-        
+
         return services;
     }
 }

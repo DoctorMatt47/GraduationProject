@@ -7,10 +7,7 @@ public class FilesController : ApiControllerBase
 {
     private readonly IFileService _fileService;
 
-    public FilesController(IFileService fileService)
-    {
-        _fileService = fileService;
-    }
+    public FilesController(IFileService fileService) => _fileService = fileService;
 
     [HttpPost]
     public async Task UploadFile(CancellationToken cancellationToken)

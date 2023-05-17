@@ -13,10 +13,10 @@ public static class ServiceCollectionExtensions
         IConfiguration configuration)
     {
         var section = configuration.GetSection("Auth");
-        
+
         services.Configure<AuthOptions>(section);
         var authOptions = section.Get<AuthOptions>()!;
-        
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(opts =>
             {

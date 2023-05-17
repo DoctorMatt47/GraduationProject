@@ -18,10 +18,10 @@ public class EntityFrameworkExtensionsTests
         var queryable = collection.AsQueryable().BuildMock();
         var page = faker.Random.Int(1, 10);
         var pageSize = faker.Random.Int(1, 10);
-        
+
         // Act
         var result = await queryable.ToPageAsync(new PageRequest(page, pageSize));
-        
+
         // Assert
         result.Should().BeOfType<PageResponse<string>>();
         result.TotalItems.Should().Be(collection.Length);

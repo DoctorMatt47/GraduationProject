@@ -14,7 +14,7 @@ public class LinqExtensionsTests
         var faker = new Faker();
         var collection = faker.Random.WordsArray(10);
         var condition = faker.Random.Bool();
-        
+
         bool Predicate(string x) => x.Length > 5;
 
         // Act
@@ -24,7 +24,7 @@ public class LinqExtensionsTests
         result.Should().BeAssignableTo<IEnumerable<string>>();
         result.Should().HaveCount(condition ? collection.Count(Predicate) : collection.Length);
     }
-    
+
     [Fact]
     public void WhereIf_ShouldReturnFilteredQueryable()
     {
@@ -33,7 +33,7 @@ public class LinqExtensionsTests
         var collection = faker.Random.WordsArray(10);
         var queryable = collection.AsQueryable();
         var condition = faker.Random.Bool();
-        
+
         Expression<Func<string, bool>> Predicate() => x => x.Length > 5;
 
         // Act

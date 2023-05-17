@@ -2,8 +2,6 @@
 
 public static class ChainExtensions
 {
-    public static TResponse Pipe<TRequest, TResponse>(this TRequest obj, Func<TRequest, TResponse> transform)
-    {
-        return transform(obj);
-    }
+    public static TResponse Pipe<TRequest, TResponse>(this TRequest obj, Func<TRequest, TResponse> transform) =>
+        transform(obj);
 }

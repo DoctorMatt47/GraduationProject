@@ -16,13 +16,11 @@ public class PasswordHashService : IPasswordHashService
         return salt;
     }
 
-    public byte[] EncodePassword(string password, byte[] passwordSalt)
-    {
-        return KeyDerivation.Pbkdf2(
+    public byte[] EncodePassword(string password, byte[] passwordSalt) =>
+        KeyDerivation.Pbkdf2(
             password,
             passwordSalt,
             KeyDerivationPrf.HMACSHA256,
             IterationCount,
             SubkeyBitCount / BitCount);
-    }
 }

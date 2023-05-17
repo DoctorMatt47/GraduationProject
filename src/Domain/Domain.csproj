@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AssemblyName>GraduationProject.Domain</AssemblyName>
-        <RootNamespace>GraduationProject.Domain</RootNamespace>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>GraduationProject.Domain</AssemblyName>
+    <RootNamespace>GraduationProject.Domain</RootNamespace>
+  </PropertyGroup>
 
 </Project>

@@ -7,15 +7,16 @@ using GraduationProject.Application.Users;
 using GraduationProject.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
+
 namespace GraduationProject.Application.UnitTests.Users;
 
 public class UserServiceTests
 {
     private readonly IAppDbContext _appDbContext;
-    private readonly IPasswordHashService _passwordHashService;
-    private readonly IIdentityRepository _identityRepository;
     private readonly IAuthTokenRepository _authTokenRepository;
+    private readonly IIdentityRepository _identityRepository;
     private readonly ILogger<UserService> _logger;
+    private readonly IPasswordHashService _passwordHashService;
 
     public UserServiceTests()
     {
@@ -35,10 +36,10 @@ public class UserServiceTests
         var token = faker.Random.String();
         var users = new List<User>();
         var userDbSet = Testing.MockDbContext(users);
-        
+
         _appDbContext.Set<User>().Returns(userDbSet);
         _authTokenRepository.GetToken(Arg.Any<ClaimsIdentity>()).Returns(token);
-        
+
         var userService = new UserService(
             _appDbContext,
             _passwordHashService,

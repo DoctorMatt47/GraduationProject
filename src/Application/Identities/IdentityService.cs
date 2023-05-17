@@ -28,7 +28,7 @@ public class IdentityService : IIdentityService
         _passwordHash = passwordHash;
         _tokens = tokens;
     }
-    
+
     public async Task<IdentityResponse> CreateIdentity(
         CreateIdentityRequest request,
         CancellationToken cancellationToken)
@@ -37,7 +37,7 @@ public class IdentityService : IIdentityService
             ?? throw BadRequestException.IncorrectLoginOrPassword;
 
         var passwordHash = _passwordHash.EncodePassword(request.Password, user.PasswordSalt);
-        
+
         var hashEquals = user.PasswordHash.SequenceEqual(passwordHash);
         if (!hashEquals) throw BadRequestException.IncorrectLoginOrPassword;
 

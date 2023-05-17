@@ -17,7 +17,7 @@ builder.Services.Configure<S3Options>(builder.Configuration.GetSection("AWS:S3")
 builder.Services
     .AddHttpContextAccessor()
     .AddScoped<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>()!.HttpContext!.User);
-    
+
 builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);

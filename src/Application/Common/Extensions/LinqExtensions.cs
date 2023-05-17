@@ -7,16 +7,12 @@ public static class LinqExtensions
     public static IEnumerable<T> WhereIf<T>(
         this IEnumerable<T> collection,
         bool condition,
-        Func<T, bool> predicate)
-    {
-        return condition ? collection.Where(predicate) : collection;
-    }
+        Func<T, bool> predicate) =>
+        condition ? collection.Where(predicate) : collection;
 
     public static IQueryable<T> WhereIf<T>(
         this IQueryable<T> collection,
         bool condition,
-        Expression<Func<T, bool>> predicate)
-    {
-        return condition ? collection.Where(predicate) : collection;
-    }
+        Expression<Func<T, bool>> predicate) =>
+        condition ? collection.Where(predicate) : collection;
 }

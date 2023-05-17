@@ -30,19 +30,21 @@ public class FileService : IFileService
 
         var key = CombineUserIdAndPath(request.Path);
 
-        var fileRecord = FileRecord.Create(key, user.Id);
-        user.AddFileRecord(fileRecord);
-
         var fileObject = FileObject.Create(key, request.File);
         await _files.UploadFile(fileObject, cancellationToken);
+
+        var fileRecord = FileRecord.Create(key, user.Id);
+        user.AddFileRecord(fileRecord);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Stream> GetFile(string path, CancellationToken cancellationToken = default)
+    public async Task<FileResponse> GetFile(string path, CancellationToken cancellationToken = default)
     {
         var key = CombineUserIdAndPath(path);
-        return await _files.GetFile(key, cancellationToken);
+        var file = await _files.GetFile(key, cancellationToken);
+
+        return new FileResponse(file.File, file.Path);
     }
 
     public async Task DeleteFile(string path, CancellationToken cancellationToken = default)

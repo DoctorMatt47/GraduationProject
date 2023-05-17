@@ -21,7 +21,7 @@ public class FileS3Repository : IFileRepository
         _s3Options = s3Options.Value;
     }
 
-    public async Task<Stream> GetFile(string path, CancellationToken cancellationToken = default)
+    public async Task<FileObject> GetFile(string path, CancellationToken cancellationToken = default)
     {
         var getObjectRequest = new GetObjectRequest
         {
@@ -32,7 +32,7 @@ public class FileS3Repository : IFileRepository
         try
         {
             var response = await _s3Client.GetObjectAsync(getObjectRequest, cancellationToken);
-            return response.ResponseStream;
+            return FileObject.Create(path, response.ResponseStream);
         }
         catch (AmazonS3Exception e)
         {

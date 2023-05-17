@@ -6,10 +6,10 @@ public class FileObject
     {
     }
 
-    public MemoryStream File { get; private init; } = null!;
+    public Stream File { get; private init; } = null!;
     public string Path { get; private init; } = null!;
 
-    public static FileObject Create(string path, MemoryStream file) =>
+    public static FileObject Create(string path, Stream file) =>
         new()
         {
             File = file,

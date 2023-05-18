@@ -2,6 +2,7 @@
 using GraduationProject.Application.Common.Exceptions;
 using GraduationProject.Application.Identities;
 using GraduationProject.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Application.Files;
 
@@ -20,21 +21,17 @@ public class FileService : IFileService
 
     public async Task UploadFile(UploadFileRequest request, CancellationToken cancellationToken = default)
     {
-        var user = await _dbContext.Set<User>().FindAsync(_identities.CurrentUser!.Id)
+        var user = await _dbContext.Set<User>().FindAsync(_identities.CurrentUser!.Id, cancellationToken)
             ?? throw NotFoundException.DoesNotExist(nameof(User), _identities.CurrentUser!.Id);
-
-        if (user.BytesUsed + request.SizeInBytes > user.MaxBytesAvailable)
-        {
-            throw new ConflictException("Not enough space available");
-        }
 
         var key = CombineUserIdAndPath(request.Path);
 
+        var fileRecord = FileRecord.Create(request.Path);
+        _dbContext.Set<FileRecord>().Add(fileRecord);
+        user.AddFileRecord(fileRecord);
+
         var fileObject = FileObject.Create(key, request.File);
         await _files.UploadFile(fileObject, cancellationToken);
-
-        var fileRecord = FileRecord.Create(key, user.Id);
-        user.AddFileRecord(fileRecord);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
@@ -53,5 +50,8 @@ public class FileService : IFileService
         await _files.DeleteFile(key, cancellationToken);
     }
 
-    private string CombineUserIdAndPath(string path) => Path.Combine(_identities.CurrentUser!.Id.ToString(), path);
+    private string CombineUserIdAndPath(string path)
+    {
+        return Path.Combine(_identities.CurrentUser!.Id.ToString(), path).Replace("\\", "/");
+    }
 }

@@ -9,17 +9,16 @@ public class FileRecord : IHasId<Guid>
     }
 
     public string Path { get; private set; } = null!;
-    public long SizeInBytes { get; private set; } = 0;
+    public long SizeInBytes { get; private set; }
 
     public User User { get; private set; } = null!;
-    public Guid UserId { get; private set; }
+    public Guid UserId { get; private set; } = Guid.Empty;
 
     public Guid Id { get; private set; } = Guid.NewGuid();
 
-    public static FileRecord Create(string path, Guid userId) =>
+    public static FileRecord Create(string path) =>
         new()
         {
             Path = path,
-            UserId = userId,
         };
 }

@@ -1,6 +1,8 @@
 using Amazon.S3;
 using GraduationProject.Application.Common.Abstractions;
+using GraduationProject.Application.Files;
 using GraduationProject.Application.Identities;
+using GraduationProject.Infrastructure.Files;
 using GraduationProject.Infrastructure.Identities;
 using GraduationProject.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -17,9 +19,11 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")!;
 
-        services.AddDbContext<IAppDbContext, AppDbContext>(options => options.UseInMemoryDatabase(connectionString));
+        services.AddDbContext<IAppDbContext, AppDbContext>(options =>
+            options.UseSqlite(connectionString));
 
         services.AddSingleton<IAuthTokenRepository, AuthTokenRepository>();
+        services.AddScoped<IFileRepository, FileS3Repository>();
 
         services.AddScoped<IIdentityRepository, IdentityRepository>();
 

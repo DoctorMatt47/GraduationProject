@@ -1,4 +1,5 @@
 ﻿using GraduationProject.Application.Files;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProject.WebApi.Controllers;
@@ -10,8 +11,12 @@ public class FilesController : ApiControllerBase
     public FilesController(IFileService fileService) => _fileService = fileService;
 
     [HttpPost]
-    public async Task UploadFile(CancellationToken cancellationToken)
+    public async Task UploadFile(IFormFile file, CancellationToken cancellationToken)
     {
-        await _fileService.UploadFile(null, cancellationToken);
+        using var stream = new MemoryStream();
+        await file.CopyToAsync(stream, cancellationToken);
+        
+        var request = new UploadFileRequest(stream, file.Length, file.Name);
+        await _fileService.UploadFile(request, cancellationToken);
     }
 }

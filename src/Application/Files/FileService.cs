@@ -36,6 +36,14 @@ public class FileService : IFileService
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task<IReadOnlyList<FileRecordResponse>> GetFileRecords(CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Set<FileRecord>()
+            .Where(fr => fr.UserId == _identities.CurrentUser!.Id)
+            .Select(fr => new FileRecordResponse(fr.Path, fr.SizeInBytes))
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<FileResponse> GetFile(string path, CancellationToken cancellationToken = default)
     {
         var key = CombineUserIdAndPath(path);
@@ -50,8 +58,6 @@ public class FileService : IFileService
         await _files.DeleteFile(key, cancellationToken);
     }
 
-    private string CombineUserIdAndPath(string path)
-    {
-        return Path.Combine(_identities.CurrentUser!.Id.ToString(), path).Replace("\\", "/");
-    }
+    private string CombineUserIdAndPath(string path) =>
+        Path.Combine(_identities.CurrentUser!.Id.ToString(), path).Replace("\\", "/");
 }

@@ -13,6 +13,7 @@ public sealed class AppDbContext : DbContext, IAppDbContext
     }
 
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<FileRecord> FileRecords { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

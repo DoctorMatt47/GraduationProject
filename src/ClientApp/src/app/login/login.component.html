@@ -1,1 +1,13 @@
-<p>login works!</p>
+<div class="text-center display-4">Login</div>
+
+<form action="" method="post">
+
+  <app-input placeholder="Username" (change)="onUsernameChange($event)">Username</app-input>
+  <app-input placeholder="Password" (change)="onPasswordChange($event)">Password</app-input>
+  <submit-app-button>Login</submit-app-button>
+
+  <div class="mb-2 text-center">
+    <a routerLink="/sign-up">Don't have an account? Sign up</a>
+  </div>
+
+</form>

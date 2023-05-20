@@ -1,1 +1,28 @@
-<router-outlet></router-outlet>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container p-3">
+    <div class="col-3">
+      <a class="navbar-brand" href="#">My App/Logo with Text</a>
+    </div>
+    <div class="col">
+      <div class="row flex-row-reverse text-center">
+        <div class="col-3">
+          <a routerLink="/login">
+            <app-button class="w-100">Login</app-button>
+          </a>
+        </div>
+        <div class="col-3">
+          <app-button class="w-100">Temp</app-button>
+        </div>
+        <div class="col-3">
+          <app-button class="w-100">Temp</app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="p-lg-5 p-md-4 p-3 mt-5 bg-dark border-info">
+    <router-outlet></router-outlet>
+  </div>
+</div>

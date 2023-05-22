@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FileRecord, FilesService} from "./files.service";
 
 @Component({
   selector: 'app-files',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./files.component.scss']
 })
 export class FilesComponent {
+  files: FileRecord[];
 
+  constructor(private filesService: FilesService) {
+    this.files = this.filesService.getFilesByDirectory("");
+  }
 }

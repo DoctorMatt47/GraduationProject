@@ -1,6 +1,8 @@
+<script src="files.service.ts"></script>
+<link rel="stylesheet" href="files.component.scss">
 <div class="text-center display-4 mb-4">Files</div>
 
-<div class="p-2 bg-light bg-opacity-10">
+<div class="p-2 bg-light bg-opacity-10 mb-3">
   /Projects/GraduationProject/src/ClientApp/src/app/
 </div>
 
@@ -24,36 +26,16 @@
         <td></td>
         <td></td>
       </tr>
-      <tr>
-        <td>my-directory_1</td>
-        <td></td>
-        <td>DIR</td>
-        <td>18/05/2002 18:00</td>
-      </tr>
-      <tr>
-        <td>My new Super NewDirectory</td>
-        <td></td>
-        <td>DIR</td>
-        <td>18/05/2002 18:00</td>
-      </tr>
-      <tr>
-        <td>my-directory_2</td>
-        <td></td>
-        <td>DIR</td>
-        <td>18/05/2002 18:00</td>
-      </tr>
-      <tr>
-        <td>custom-new-file_1</td>
-        <td>txt</td>
-        <td>55 mb</td>
-        <td>18/05/2002 18:00</td>
-      </tr>
-      <tr class="">
-        <td>shell executable script</td>
-        <td>sh</td>
-        <td>200 b</td>
-        <td>18/05/2002 18:00</td>
-      </tr>
+      <ng-container *ngFor="let file of files">
+        <tr>
+          <td>
+            <a href="#">{{file.name}}</a>
+          </td>
+          <td>{{file.extension}}</td>
+          <td>{{file.sizeInBytes}}</td>
+          <td>{{file.date}}</td>
+        </tr>
+      </ng-container>
       </tbody>
     </table>
   </div>

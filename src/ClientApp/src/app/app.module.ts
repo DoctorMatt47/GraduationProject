@@ -7,7 +7,7 @@ import {LoginComponent} from "./login/login.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {FilesComponent} from './files/files.component';
 import {FormsModule} from "@angular/forms";
-import {FilesService} from "./files/files.service";
+import {FileService} from "./files/file.service";
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import {FilesService} from "./files/files.service";
     AppRoutingModule,
     FormsModule,
   ],
-  providers: [FilesService],
+  providers: [FileService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

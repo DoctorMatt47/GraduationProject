@@ -1,9 +1,19 @@
 .table {
 }
 
+tr {
+  //border-bottom: 0;
+}
+
 td, th {
   color: #d9d9d9!important;
   background-color: inherit;
+  border-bottom: 0;
+}
+
+.download:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .radius {
@@ -15,4 +25,8 @@ td, th {
 
 td, th {
   padding: 0.6rem 0 0.6rem 1rem;
+}
+
+.file-upload-input {
+  display: none;
 }

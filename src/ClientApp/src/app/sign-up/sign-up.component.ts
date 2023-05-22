@@ -6,24 +6,24 @@ import {Component} from '@angular/core';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-  username: string = "";
-  password: string = "";
+  username = "";
+  password = "";
+  repeatPassword = "";
+  errorMessage = "";
 
-  onUsernameChange(event: Event) {
-    this.username = (event.target as HTMLInputElement).value;
-  }
+  constructor() { }
 
-  onPasswordChange(event: Event) {
-    this.password = (event.target as HTMLInputElement).value;
-  }
-
-  onRepeatPasswordChange(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    const repeatPassword = inputElement.value
-    if (repeatPassword === this.password) {
-      inputElement.setCustomValidity("");
+  login() {
+    if (this.password !== this.repeatPassword) {
+      this.errorMessage = "Passwords don't match";
+      return;
     }
 
-    inputElement.setCustomValidity("Passwords don't match");
+    const signUpValues = {
+      username: this.username,
+      password: this.password,
+    };
+
+    console.log(signUpValues);
   }
 }

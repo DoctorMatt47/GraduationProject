@@ -1,20 +1,28 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container p-3">
     <div class="col-3">
-      <a class="navbar-brand" href="#">My App/Logo with Text</a>
+      <a class="navbar-brand" href="#">IRemoteStorage</a>
     </div>
     <div class="col">
       <div class="row flex-row-reverse text-center">
         <div class="col-3">
           <a routerLink="/login">
-            <app-button class="w-100">Login</app-button>
+            <button type="button" class="btn btn-secondary w-100">
+              Login
+            </button>
           </a>
         </div>
         <div class="col-3">
-          <app-button class="w-100">Temp</app-button>
+          <a routerLink="/root">
+            <button type="button" class="btn btn-secondary w-100">
+              Files
+            </button>
+          </a>
         </div>
         <div class="col-3">
-          <app-button class="w-100">Temp</app-button>
+          <button type="button" class="btn btn-secondary w-100">
+            Temp
+          </button>
         </div>
       </div>
     </div>
@@ -22,7 +30,7 @@
 </nav>
 
 <div class="container">
-  <div class="p-lg-5 p-md-4 p-3 mt-5 bg-dark border-info">
+  <div class="p-lg-5 p-md-4 p-3 mt-5 bg-dark main">
     <router-outlet></router-outlet>
   </div>
 </div>

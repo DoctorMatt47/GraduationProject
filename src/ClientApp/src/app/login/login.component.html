@@ -1,13 +1,45 @@
 <div class="text-center display-4">Login</div>
 
-<form action="" method="post">
+<form>
+  <div class="form-group">
 
-  <app-input placeholder="Username" (change)="onUsernameChange($event)">Username</app-input>
-  <app-input placeholder="Password" (change)="onPasswordChange($event)">Password</app-input>
-  <submit-app-button>Login</submit-app-button>
+    <div class="row justify-content-center mt-3 mb-1">
+      <div class="col-10 col-md-6 col-xl-4">
+        <label class="w-100">
+          Username
+          <input type="text" name="username" class="form-control" placeholder="Username" [(ngModel)]="username" required>
+        </label>
+      </div>
+    </div>
 
-  <div class="mb-2 text-center">
-    <a routerLink="/sign-up">Don't have an account? Sign up</a>
+    <div class="row justify-content-center mt-3 mb-1">
+      <div class="col-10 col-md-6 col-xl-4">
+        <label class="w-100">
+          Password
+          <input type="text" name="password" class="form-control" placeholder="Password" [(ngModel)]="password" required>
+        </label>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-5 mb-2">
+      <div class="col-10 col-md-6 col-xl-4">
+        <label class="w-100">
+          <button type="submit" class="btn btn-secondary w-100" (click)="signUp()">
+            Login
+          </button>
+          <div *ngIf="errorMessage.length > 0">
+            <div class="alert alert-danger mt-3" role="alert">
+              {{errorMessage}}
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+
   </div>
-
 </form>
+
+<div class="mb-2 text-center">
+  <a routerLink="/sign-up">Don't have an account? Sign up</a>
+</div>

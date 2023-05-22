@@ -1,8 +1,53 @@
 <div class="text-center display-4">Sign up</div>
 
-<form action="" method="post">
-  <app-input placeholder="Username" (change)="onUsernameChange($event)">Username</app-input>
-  <app-input placeholder="Password" (change)="onPasswordChange($event)">Password</app-input>
-  <app-input placeholder="Repeat password" (change)="onRepeatPasswordChange($event)">Repeat password</app-input>
-  <submit-app-button>Sign up</submit-app-button>
+<form>
+  <div class="form-group">
+
+    <div class="row justify-content-center mt-3 mb-1">
+      <div class="col-10 col-md-6 col-xl-4">
+        <label class="w-100">
+          Username
+          <input type="text" name="username" class="form-control" placeholder="Username" [(ngModel)]="username"
+                 required>
+        </label>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-3 mb-1">
+      <div class="col-10 col-md-6 col-xl-4">
+        <label class="w-100">
+          Password
+          <input type="text" name="password" class="form-control" placeholder="Password" [(ngModel)]="password"
+                 required>
+        </label>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-3 mb-1">
+      <div class="col-10 col-md-6 col-xl-4">
+        <label class="w-100">
+          Repeat password
+          <input type="text" name="repeat-password" class="form-control" placeholder="Repeat password"
+                 [(ngModel)]="repeatPassword" required>
+        </label>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-4 mb-1">
+      <div class="col-10 col-md-6 col-xl-4">
+        <label class="w-100">
+          <button type="submit" class="btn btn-secondary w-100" (click)="login()">
+            Sign up
+          </button>
+          <div *ngIf="errorMessage.length > 0">
+            <div class="alert alert-danger mt-3" role="alert">
+              {{errorMessage}}
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+
+  </div>
 </form>

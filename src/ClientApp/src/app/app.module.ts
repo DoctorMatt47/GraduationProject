@@ -4,25 +4,24 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
 import {LoginComponent} from "./login/login.component";
-import {AppButtonComponent} from "./common/components/app-button.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
-import {AppInputComponent} from "./common/components/app-input.component";
-import {SubmitAppButtonComponent} from "./common/components/submit-app-button.component";
+import {FilesComponent} from './files/files.component';
+import {FormsModule} from "@angular/forms";
+import {FilesService} from "./files/files.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    AppButtonComponent,
-    AppInputComponent,
-    SubmitAppButtonComponent,
+    FilesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
   ],
-  providers: [],
+  providers: [FilesService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

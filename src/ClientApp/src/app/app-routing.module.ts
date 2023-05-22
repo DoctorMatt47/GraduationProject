@@ -7,7 +7,7 @@ import {FilesComponent} from "./files/files.component";
 const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "sign-up", component: SignUpComponent},
-  {path: "root", component: FilesComponent},
+  {path: "root", children: [{path: '**', component: FilesComponent}]},
 ];
 
 @NgModule({

@@ -12,6 +12,8 @@ public class ConflictException : AppExceptionBase
         string entityName,
         object propertyValue,
         [CallerArgumentExpression(nameof(propertyValue))]
-        string propertyName = null!) =>
-        new($"There is already a {entityName} with {propertyName} '{propertyValue}'");
+        string propertyName = null!)
+    {
+        return new ConflictException($"There is already a {entityName} with {propertyName} '{propertyValue}'");
+    }
 }

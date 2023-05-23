@@ -1,14 +1,12 @@
 ﻿namespace GraduationProject.Application.Files;
 
-public record FileResponse(
-    Stream File,
-    string Path);
-
 public record FileRecordResponse(
     string Path,
-    long SizeInBytes);
+    long SizeInBytes,
+    DateTimeOffset UploadedAt);
 
 public record UploadFileRequest(
     MemoryStream File,
-    long SizeInBytes,
     string Path);
+
+public record UploadDirectoryRequest(string Path);

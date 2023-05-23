@@ -26,9 +26,21 @@ public class FileService : IFileService
 
         var key = CombineUserIdAndPath(request.Path);
 
-        var fileRecord = FileRecord.Create(request.Path);
-        _dbContext.Set<FileRecord>().Add(fileRecord);
-        user.AddFileRecord(fileRecord);
+        var fileRecord = await _dbContext.Set<FileRecord>().FirstOrDefaultAsync(
+            fr => fr.UserId == user.Id && fr.Path == request.Path,
+            cancellationToken);
+
+        if (fileRecord is null)
+        {
+            fileRecord = FileRecord.Create(request.Path, request.File.Length);
+            _dbContext.Set<FileRecord>().Add(fileRecord);
+            user.AddFileRecord(fileRecord);
+        }
+        else
+        {
+            fileRecord.UpdateSize(request.File.Length);
+        }
+        
 
         var fileObject = FileObject.Create(key, request.File);
         await _files.UploadFile(fileObject, cancellationToken);
@@ -36,20 +48,22 @@ public class FileService : IFileService
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IReadOnlyList<FileRecordResponse>> GetFileRecords(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<FileRecordResponse>> GetFileRecords(
+        CancellationToken cancellationToken = default)
     {
         return await _dbContext.Set<FileRecord>()
             .Where(fr => fr.UserId == _identities.CurrentUser!.Id)
-            .Select(fr => new FileRecordResponse(fr.Path, fr.SizeInBytes))
+            .Select(fr => new FileRecordResponse(fr.Path, fr.SizeInBytes, fr.UploadedAt))
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<FileResponse> GetFile(string path, CancellationToken cancellationToken = default)
+
+    public async Task<Stream> DownloadFile(string path, CancellationToken cancellationToken = default)
     {
         var key = CombineUserIdAndPath(path);
-        var file = await _files.GetFile(key, cancellationToken);
+        var fileObject = await _files.GetFile(key, cancellationToken);
 
-        return new FileResponse(file.File, file.Path);
+        return fileObject.File;
     }
 
     public async Task DeleteFile(string path, CancellationToken cancellationToken = default)

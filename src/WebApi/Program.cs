@@ -7,6 +7,7 @@ using GraduationProject.WebApi.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
+    .AddCors()
     .AddEndpointsApiExplorer()
     .AddSwagger()
     .AddBearerAuthentication(builder.Configuration)
@@ -23,6 +24,11 @@ builder.Services
     .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseCors(cors => cors
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 if (app.Environment.IsDevelopment())
 {

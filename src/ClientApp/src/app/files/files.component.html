@@ -33,7 +33,8 @@
             </div>
           </td>
           <td>{{file.extension}}</td>
-          <td>{{sizeHumanized(file)}}</td>
+          <td *ngIf="file.isDirectory">DIR</td>
+          <td *ngIf="!file.isDirectory">{{file.sizeInBytes | bytes}}</td>
           <td>{{file.date | date}}</td>
           <td></td>
         </tr>

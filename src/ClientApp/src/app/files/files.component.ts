@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FileRecord, FileService} from "./file.service";
+import {FileRecord, FileService} from "../common/services/file.service";
 import {firstValueFrom} from "rxjs";
 import {Router} from "@angular/router";
 
@@ -13,7 +13,11 @@ export class FilesComponent {
   path: string;
   bytesAvailable: number = 1000000000;
 
-  constructor(private filesService: FileService, private router: Router) {
+  constructor(
+    private filesService: FileService,
+    private router: Router,
+) {
+
     this.path = this.router.url;
     this.files = this.filesService.getFilesByDirectory(this.path);
     console.log(router.getCurrentNavigation());
@@ -25,13 +29,6 @@ export class FilesComponent {
 
     const fileResponse = await firstValueFrom(this.filesService.uploadFolder(folderName))
     this.files.push(fileResponse);
-  }
-
-  sizeHumanized(file: FileRecord): string {
-    if (file.isDirectory) return "DIR";
-    if (file.sizeInBytes < 1024) return file.sizeInBytes + " B";
-    if (file.sizeInBytes < 1024 * 1024) return Math.round(file.sizeInBytes / 1024) + " KB";
-    return Math.round(file.sizeInBytes / 1024 / 1024) + " MB";
   }
 
   async navigateOrDownload(file: FileRecord) {

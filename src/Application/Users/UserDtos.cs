@@ -2,7 +2,9 @@
 
 public record CreateUserResponse(
     string Token,
-    Guid Id);
+    Guid Id,
+    long MaxBytesAvailable,
+    long BytesUsed);
 
 public record CreateUserRequest(
     string Login,

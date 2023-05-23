@@ -46,6 +46,6 @@ public class IdentityService : IIdentityService
         var identity = _identities.CreateIdentity(user);
         var token = _tokens.GetToken(identity);
 
-        return new IdentityResponse(token, user.Id);
+        return new IdentityResponse(token, user.Id, user.MaxBytesAvailable, user.BytesUsed);
     }
 }

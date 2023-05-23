@@ -2,7 +2,9 @@
 
 public record IdentityResponse(
     string Token,
-    Guid Id);
+    Guid Id,
+    long MaxBytesAvailable,
+    long BytesUsed);
 
 public record CreateIdentityRequest(
     string Login,

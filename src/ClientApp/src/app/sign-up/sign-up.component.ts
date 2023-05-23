@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {IdentityService} from "../common/services/identity.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
@@ -11,19 +13,22 @@ export class SignUpComponent {
   repeatPassword = "";
   errorMessage = "";
 
-  constructor() { }
+  constructor(private identityService: IdentityService, private router: Router) { }
 
-  login() {
+  async signUp() {
     if (this.password !== this.repeatPassword) {
       this.errorMessage = "Passwords don't match";
       return;
     }
 
     const signUpValues = {
-      username: this.username,
+      login: this.username,
       password: this.password,
     };
 
     console.log(signUpValues);
+
+    const response = await this.identityService.signUp(signUpValues);
+    await this.router.navigate(["/files"]);
   }
 }

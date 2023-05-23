@@ -1,4 +1,6 @@
 import {Component} from "@angular/core";
+import {IdentityService} from "../common/services/identity.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -10,7 +12,17 @@ export class LoginComponent {
   password = "";
   errorMessage = "";
 
-  signUp() {
-    this.errorMessage = "Not implemented yet";
+  constructor(
+    private identityService: IdentityService,
+    private router: Router ) { }
+
+  async login() {
+    const request = {
+      login: this.username,
+      password: this.password,
+    };
+
+    const identity = await this.identityService.login(request);
+    await this.router.navigate(["/files"]);
   }
 }

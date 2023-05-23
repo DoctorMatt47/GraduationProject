@@ -7,7 +7,8 @@
       <div class="col-10 col-md-6 col-xl-4">
         <label class="w-100">
           Username
-          <input type="text" name="username" class="form-control" placeholder="Username" [(ngModel)]="username" required>
+          <input type="text" name="username" class="form-control" placeholder="Username" [(ngModel)]="username"
+                 required>
         </label>
       </div>
     </div>
@@ -16,7 +17,8 @@
       <div class="col-10 col-md-6 col-xl-4">
         <label class="w-100">
           Password
-          <input type="text" name="password" class="form-control" placeholder="Password" [(ngModel)]="password" required>
+          <input type="text" name="password" class="form-control" placeholder="Password" [(ngModel)]="password"
+                 required>
         </label>
       </div>
     </div>
@@ -24,7 +26,7 @@
     <div class="row justify-content-center mt-5 mb-2">
       <div class="col-10 col-md-6 col-xl-4">
         <label class="w-100">
-          <button type="submit" class="btn btn-secondary w-100" (click)="signUp()">
+          <button type="submit" class="btn btn-secondary w-100" (click)="login()">
             Login
           </button>
           <div *ngIf="errorMessage.length > 0">

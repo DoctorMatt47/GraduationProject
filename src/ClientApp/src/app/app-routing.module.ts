@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "sign-up", component: SignUpComponent},
   {path: "root", children: [{path: '**', component: FilesComponent}]},
+  {path: "**", redirectTo: "/root", pathMatch: "full"},
 ];
 
 @NgModule({

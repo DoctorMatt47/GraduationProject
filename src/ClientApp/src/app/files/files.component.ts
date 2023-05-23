@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./files.component.scss']
 })
 export class FilesComponent {
-  files: FileRecord[];
+  files: FileRecord[] = [];
   path: string;
   bytesAvailable: number = 1000000000;
 
@@ -17,33 +17,45 @@ export class FilesComponent {
     private filesService: FileService,
     private router: Router,
 ) {
+    this.path = this.router.url
+      .replace("/root", "");
+  }
 
-    this.path = this.router.url;
-    this.files = this.filesService.getFilesByDirectory(this.path);
-    console.log(router.getCurrentNavigation());
+  async ngOnInit() {
+    this.files = await this.filesService.getFilesByDirectory(this.path);
   }
 
   async newFolder() {
     const folderName = prompt("Enter folder name");
     if (!folderName) return;
 
-    const fileResponse = await firstValueFrom(this.filesService.uploadFolder(folderName))
-    this.files.push(fileResponse);
+    this.files.push({
+      name: folderName,
+      isDirectory: true,
+      sizeInBytes: 0,
+      extension: "",
+      date: "",
+    });
   }
 
   async navigateOrDownload(file: FileRecord) {
+    const path = `${this.path}/${file.name}`;
     if (file.isDirectory) {
-      const path = `${this.path}/${file.name}`;
-      await this.router.navigate([path]);
+      await this.router.navigate(["/root" + path]);
       this.path = path
+      console.log(this.path);
+      this.files = await this.filesService.getFilesByDirectory(this.path);
       return;
     }
 
-    alert("Downloading " + file.name);
+    await this.filesService.downloadFile(path);
   }
 
   async uploadFile(event: any) {
-    const fileResponse = await firstValueFrom(this.filesService.uploadFile(event.target.files[0]));
-    this.files.push(fileResponse);
+    const file = event.target.files[0];
+    if (!file) return;
+
+    await this.filesService.uploadFile(this.path, file);
+    this.files = await this.filesService.getFilesByDirectory(this.path);
   }
 }

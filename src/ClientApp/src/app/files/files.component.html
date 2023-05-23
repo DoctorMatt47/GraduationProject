@@ -1,7 +1,7 @@
 <div class="text-center display-4 mb-4">Files</div>
 
 <div class="p-2 bg-light bg-opacity-10 mb-3">
-  {{path}}
+  {{"/root" + path}}
 </div>
 
 <div class="table-responsive radius">
@@ -35,7 +35,7 @@
           <td>{{file.extension}}</td>
           <td *ngIf="file.isDirectory">DIR</td>
           <td *ngIf="!file.isDirectory">{{file.sizeInBytes | bytes}}</td>
-          <td>{{file.date | date}}</td>
+          <td><ng-container *ngIf="!file.isDirectory">{{file.date | date}}</ng-container></td>
           <td></td>
         </tr>
       </ng-container>

@@ -19,10 +19,8 @@
             </button>
           </a>
         </div>
-        <div class="col-3">
-          <button type="button" class="btn btn-secondary w-100">
-            Temp
-          </button>
+        <div class="col-3" *ngIf="authData.isAuthenticated()">
+          {{authData.bytesUsed! | bytes}} / {{authData.maxBytesAvailable! | bytes}}
         </div>
       </div>
     </div>

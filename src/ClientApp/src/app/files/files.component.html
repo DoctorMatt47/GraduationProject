@@ -29,6 +29,8 @@
         <tr>
           <td>
             <div class="download" (click)="navigateOrDownload(file)">
+              <i *ngIf="!file.isDirectory" class="fa-regular fa-file me-2"></i>
+              <i *ngIf="file.isDirectory" class="fa-regular fa-folder me-2"></i>
               {{file.name}}
             </div>
           </td>
@@ -36,7 +38,11 @@
           <td *ngIf="file.isDirectory">DIR</td>
           <td *ngIf="!file.isDirectory">{{file.sizeInBytes | bytes}}</td>
           <td><ng-container *ngIf="!file.isDirectory">{{file.date | date}}</ng-container></td>
-          <td></td>
+          <td>
+            <div class="download" (click)="remove(file)">
+              <i *ngIf="!file.isDirectory" class="fa-regular fa-square-minus"></i>
+            </div>
+          </td>
         </tr>
       </ng-container>
       </tbody>

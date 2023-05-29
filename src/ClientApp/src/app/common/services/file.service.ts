@@ -88,6 +88,8 @@ export class FileService {
         {headers: {Authorization: `Bearer ${this.authData.token}`}}));
 
     await this.loadFileRecords();
+
+    this.authData.increaseBytesUsed(file.size);
   }
 
   private async loadFileRecords() {
@@ -97,4 +99,10 @@ export class FileService {
         {headers: {Authorization: `Bearer ${this.authData.token}`}}));
   }
 
+  async removeFile(path: string) : Promise<void> {
+    await firstValueFrom(
+      this.httpClient.delete(
+        this.filesUrl + path.replaceAll("/", "%2F"),
+        {headers: {Authorization: `Bearer ${this.authData.token}`}}));
+  }
 }

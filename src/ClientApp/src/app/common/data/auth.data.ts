@@ -35,4 +35,15 @@ export class AuthData {
     localStorage.setItem("maxBytesAvailable", maxBytesAvailable.toString());
     localStorage.setItem("bytesUsed", bytesUsed.toString());
   }
+
+  increaseBytesUsed(bytes: number) {
+    this.bytesUsed! += bytes;
+    localStorage.setItem("bytesUsed", this.bytesUsed!.toString());
+  }
+
+  decreaseBytesUsed(bytes: number) {
+    this.bytesUsed! -= bytes;
+    localStorage.setItem("bytesUsed", this.bytesUsed!.toString());
+  }
+
 }

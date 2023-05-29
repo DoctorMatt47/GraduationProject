@@ -58,4 +58,9 @@ export class FilesComponent {
     await this.filesService.uploadFile(this.path, file);
     this.files = await this.filesService.getFilesByDirectory(this.path);
   }
+
+  async remove(file: FileRecord) {
+    const path = `${this.path}/${file.name}`;
+    await this.filesService.removeFile(path);
+  }
 }
